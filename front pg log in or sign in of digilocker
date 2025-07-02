@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiLocker - Secure Digital Document Storage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body{
+            background-color: #f0f2f5;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1000px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .info-section {
+            flex: 1;
+            background: linear-gradient(135deg, #1e4b9a 0%, #1565c0 100%);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .info-section h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .info-section p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .features {
+            margin-top: 30px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .feature-icon {
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .login-section {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #777;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab.active {
+            color: #1565c0;
+            border-bottom: 2px solid #1565c0;
+        }
+        
+        .form-container {
+            max-width: 100%;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: #1565c0;
+            outline: none;
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-group input {
+            margin-right: 8px;
+        }
+        
+        .forgot-password {
+            color: #1565c0;
+            text-decoration: none;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #1565c0;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #0d47a1;
+        }
+        
+        .or-divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .or-divider::before, .or-divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background-color: #ddd;
+        }
+        
+        .or-divider::before {
+            left: 0;
+        }
+        
+        .or-divider::after {
+            right: 0;
+        }
+        
+        .social-login {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .social-btn:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .social-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+        
+        .signup-prompt {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .signup-link {
+            color: #1565c0;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .signup-link:hover {
+            text-decoration: underline;
+        }
+        
+        .login-form {
+            display: block;
+        }
+        
+        .signup-form {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                max-width: 400px;
+            }
+            
+            .info-section {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="info-section">
+            <h1>DigiLocker</h1>
+            <p>Your secure digital document storage solution. Store, access, and share your important documents anytime, anywhere.</p>
+            
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-icon">📄</div>
+                    <div>Store official documents securely</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div>End-to-end encryption</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div>Access on any device</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔄</div>
+                    <div>Easy document sharing</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="login-section">
+            <div class="tabs">
+                <div class="tab active" id="login-tab">Login</div>
+                <div class="tab" id="signup-tab">Sign Up</div>
+            </div>
+            
+            <div class="form-container">
+                <form class="login-form">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="remember-forgot">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn">Login</button>
+                    
+                    <div class="or-divider">OR</div>
+                    
+                    <div class="social-login">
+                        <button type="button" class="social-btn">
+                            <span class="social-icon">G</span>
+                            Google
+                        </button>
+                        <button type="button" class="social-btn">
+                            <span class="social-icon">f</span>
+                            Facebook
+                        </button>
+                    </div>
+                    
+                    <div class="signup-prompt">
+                        Don't have an account? <a href="#" class="signup-link" id="signup-link">Sign up</a>
+                    </div>
+                </form>
+                
+                <form class="signup-form">
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-email">Email Address</label>
+                        <input type="email" id="signup-email" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number</label>
+                        <input type="tel" id="mobile" placeholder="Enter mobile number" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-password">Create Password</label>
+                        <input type="password" id="signup-password" placeholder="Enter a strong password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn">Create Account</button>
+                    
+                    <div class="signup-prompt">
+                        Already have an account? <a href="#" class="signup-link" id="login-link">Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Simple tab switching functionality
+        document.getElementById('login-tab').addEventListener('click', function() {
+            document.getElementById('login-tab').classList.add('active');
+            document.getElementById('signup-tab').classList.remove('active');
+            document.querySelector('.login-form').style.display = 'block';
+            document.querySelector('.signup-form').style.display = 'none';
+        });
+        
+        document.getElementById('signup-tab').addEventListener('click', function() {
+            document.getElementById('signup-tab').classList.add('active');
+            document.getElementById('login-tab').classList.remove('active');
+            document.querySelector('.signup-form').style.display = 'block';
+            document.querySelector('.login-form').style.display = 'none';
+        });
+        
+        document.getElementById('signup-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('signup-tab').click();
+        });
+        
+        document.getElementById('login-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('login-tab').click();
+        });
+    </script>
+</body>
+</html>
